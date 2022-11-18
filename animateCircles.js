@@ -12,7 +12,7 @@ function Circles(x, y, r, dx, dy) {
   this.dy = dy;
 
   this.draw = function () {
-    console.log("drawing");
+    //console.log("drawing");
     context.beginPath();
     context.arc(this.x, this.y, this.r, 0, Math.PI * 3, false);
     context.strokeStyle = "blue";
@@ -37,23 +37,24 @@ function Circles(x, y, r, dx, dy) {
 }
 
 let circle = new Circles(200, 200, 30, 5, 5);
-console.log(circle);
-console.log(circle.draw());
+//console.log(circle);
+//console.log(circle.draw());
 
 //creating 100 circle
 
 let circleArray = [];
 for (let i = 0; i < 100; i++) {
-  let x = Math.random() * innerWidth;
-  let dx = (Math.random() - 0.5) * 5;
   let radius = 30;
-  let y = Math.random() * innerHeight;
+  let x = Math.random() * (innerWidth - radius * 2) + 2;
+  let dx = (Math.random() - 0.5) * 5;
+
+  let y = Math.random() * (innerHeight - radius * 2) + 2;
   let dy = (Math.random() - 0.5) * 5;
 
   circleArray.push(new Circles(x, y, radius, dx, dy));
 }
 
-//console.log(circleArray);
+console.log(circleArray);
 
 // let x = Math.random() * innerWidth;
 // let dx = (Math.random() - 0.5) * 10;
@@ -86,7 +87,7 @@ function animate() {
   //   x += dx;
   //   y += dy;
 
-  //circle.update();
+  circle.update();
 
   //loop thru arrayCirlces to display circles
   for (let i = 0; i < circleArray.length; i++) {
