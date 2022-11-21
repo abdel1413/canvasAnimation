@@ -4,36 +4,70 @@ let context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-function Circles(x, y, r, dx, dy) {
-  this.x = x;
-  this.y = y;
-  this.r = r;
-  this.dx = dx;
-  this.dy = dy;
+//using function object
+// function Circles(x, y, r, dx, dy) {
+//   this.x = x;
+//   this.y = y;
+//   this.r = r;
+//   this.dx = dx;
+//   this.dy = dy;
 
-  this.draw = function () {
-    //console.log("drawing");
+//   this.draw = function () {
+//     //console.log("drawing");
+//     context.beginPath();
+//     context.arc(this.x, this.y, this.r, 0, Math.PI * 3, false);
+//     context.strokeStyle = "red";
+//     context.fillStyle = "yellow";
+//     context.fill();
+//     context.lineWidth = 1;
+//     context.stroke();
+//   };
+
+//   //create update mthd to update the circle
+//   this.update = function () {
+//     if (this.x + this.r > innerWidth || this.x - this.r < 0) {
+//       this.dx = -this.dx;
+//     }
+//     if (this.y + this.r > innerHeight || this.y - this.r < 0) {
+//       this.dy = -this.dy;
+//     }
+//     this.x += this.dx;
+//     this.y += this.dy;
+//     this.draw();
+//   };
+// }
+
+//using class
+class Circles {
+  constructor(x, y, r, dx, dy) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.dx = dx;
+    this.dy = dy;
+  }
+
+  draw() {
     context.beginPath();
     context.arc(this.x, this.y, this.r, 0, Math.PI * 3, false);
+    context.fillStyle = "green";
     context.strokeStyle = "blue";
-    context.fillStyle = "blue";
     //context.fill();
-    context.lineWidth = 1;
     context.stroke();
-  };
+  }
 
-  //create update mthd to update the circle
-  this.update = function () {
+  update() {
     if (this.x + this.r > innerWidth || this.x - this.r < 0) {
       this.dx = -this.dx;
     }
     if (this.y + this.r > innerHeight || this.y - this.r < 0) {
       this.dy = -this.dy;
     }
+    //now save velocities in x and y corrd
     this.x += this.dx;
     this.y += this.dy;
-    this.draw();
-  };
+    this.draw(); // call draw to draw a circle each time
+  }
 }
 
 let circle = new Circles(200, 200, 30, 5, 5);
@@ -45,10 +79,14 @@ let circle = new Circles(200, 200, 30, 5, 5);
 let circleArray = [];
 for (let i = 0; i < 100; i++) {
   let radius = 30;
-  let x = Math.random() * (innerWidth - radius * 2) + 2;
+  // to avoid  the circles bounce off or get caught  the innerwith or innerHeight
+  // we subtract diamater of circle from innerWidth then add radius
+  //to make sure x-coord is greather than circle radius
+  //same for innerHeight
+  let x = Math.random() * innerWidth + radius;
   let dx = (Math.random() - 0.5) * 5;
 
-  let y = Math.random() * (innerHeight - radius * 2) + 2;
+  let y = Math.random() * innerHeight + radius;
   let dy = (Math.random() - 0.5) * 5;
 
   circleArray.push(new Circles(x, y, radius, dx, dy));
