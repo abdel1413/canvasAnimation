@@ -8,6 +8,23 @@ canvas.style.background = "blue";
 
 //console.log(cx.width);
 
+//add interactivity here to grow or shrink the circles within
+//certain distance
+let maxRadius = 40;
+let minRadius = 2;
+var mouseCoords = {
+  x: undefined,
+  y: undefined,
+};
+
+window.addEventListener("mousemove", function (event) {
+  mouseCoords.x = event.x;
+  mouseCoords.y = event.y;
+  console.log("inside event", mouseCoords.x);
+  // console.log(this.x);
+  // console.log(mouseCoords);
+});
+console.log(mouseCoords);
 class Circles {
   constructor(x, y, r, dx, dy) {
     this.x = x;
@@ -26,6 +43,7 @@ class Circles {
     cx.fill();
     cx.stroke();
   }
+
   //create random number
 
   update() {
@@ -39,6 +57,36 @@ class Circles {
 
     this.x += this.dx;
     this.y += this.dy;
+    // interactivity
+    //grow all the circles that appear around mouse withing 50px radius
+    // console.log("move", mouseCoords.x);
+    // console.log("this", this.x);
+    // window.addEventListener("click", function (event) {
+    //   console.log(event);
+    //   mouseCoords.x = event.x;
+    //   mouseCoords.y = event.y;
+    //   console.log("inside event", mouseCoords.x);
+    //   // console.log(this.x);
+    //   console.log(mouseCoords);
+    // });
+    console.log(mouseCoords);
+    console.log(this.x);
+    console.log(mouseCoords.x);
+    if (
+      mouseCoords.x - this.x < 50 &&
+      mouseCoords.x - this.x > -50 &&
+      mouseCoords.y - this.y < 50 &&
+      mouseCoords.y - this.y > -50
+    ) {
+      //check if the raduis is less than the max radius
+      if (this.radius < maxRadius) {
+        this.radius += 1;
+      }
+      // don't shrink the radius if is less than 2
+    } else if (this.radius > minRadius) {
+      this.radius -= 1;
+    }
+
     this.drawing();
   }
 }
@@ -46,14 +94,14 @@ class Circles {
 // create 100 circle where each
 //circle has its velocity different from othere
 let circlesArray = [];
-for (let i = 0; i < 300; i++) {
+for (let i = 0; i < 1000; i++) {
   //create random number
-  let radius = Math.random() * 30;
+  let radius = 30;
   let x = Math.random() * (innerWidth - radius * 2) + radius;
   //console.log("rand x", x);
   let y = Math.random() * (innerHeight - radius * 2) + radius;
-  let dx = Math.random() * -0.5 + 2;
-  let dy = Math.random() * -0.5 + 2;
+  let dx = Math.random() * -0.5 * 8;
+  let dy = Math.random() * -0.5 * 8;
   circlesArray.push(new Circles(x, y, radius, dx, dy));
 }
 //for (let cir of circlesArray) console.log(cir);
@@ -63,9 +111,7 @@ for (let i = 0; i < 300; i++) {
 
 //add event listener to grow or shrink the circles within
 // 40 px wides from the mouse position
-window.addEventListener("mousemove", function () {
-  console.log("mouse is mooved");
-});
+//create an object to collect x y coords
 
 function animate() {
   requestAnimationFrame(animate);
