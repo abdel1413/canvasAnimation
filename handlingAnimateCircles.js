@@ -3,7 +3,7 @@ let cx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.background = "blue";
+//canvas.style.background = "blue";
 
 //add interactivity here to grow or shrink the circles within
 //certain distance
@@ -19,7 +19,7 @@ var mouseCoords = {
  create an object to collect x y coords
  */
 
-let colorArray = ["#ffaa33", "#99ffaaa", "#00ff00", "#4411aa", "#ff1100"];
+let colorArray = ["#2C2E50", "#E74C3C", "#ECF0F1", "#3498DB", "#2980B9"];
 window.addEventListener("mousemove", function (event) {
   console.log(event);
   mouseCoords.x = event.x;
@@ -47,9 +47,9 @@ class Circles {
   drawing() {
     cx.beginPath();
     cx.arc(this.x, this.y, this.r, 0, Math.PI * 3, false);
-    cx.strokeStyle = "blue";
+    //cx.strokeStyle = "blue";
     cx.fillStyle = this.colors;
-    cx.lineStyel = 2;
+    //cx.lineStyel = 2;
     cx.fill();
     cx.stroke();
   }

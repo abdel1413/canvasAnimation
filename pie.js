@@ -41,7 +41,7 @@ for (let result of results) {
 
 let cx = document.querySelector("#text").getContext("2d");
 //specify the size, style, and font of the text with the font property
-cx.font = "bold 20px Gorgia";
+cx.font = "italic bold 20px Gorgia";
 cx.fillStyle = "fushia";
 let p = prompt("Enter a text here");
 cx.fillText(p, 90, 50);
